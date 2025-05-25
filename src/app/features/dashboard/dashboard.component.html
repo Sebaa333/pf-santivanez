@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container" autosize>
+    <!-- sidebar -->
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+    @if (showFiller) {
+      <p>Lorem, ipsum dolor sit amet consectetur.</p>
+    }
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button>
+  </mat-drawer>
+<!-- contenido -->
+  <div class="example-sidenav-content">
+    <!-- toolbar -->
+   <mat-toolbar>
+  <button
+  (click)="drawer.toggle()" 
+  mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+</mat-toolbar>
+<app-users/>
+
+    
+  </div>
+
+</mat-drawer-container>

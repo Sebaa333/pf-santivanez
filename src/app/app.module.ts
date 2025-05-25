@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './features/dashboard/dashboard.module';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { DashboardModule } from './features/dashboard/dashboard.module';
     AppRoutingModule,
     DashboardModule,
   ],
-  providers: [],
+  providers: [provideNativeDateAdapter(),],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

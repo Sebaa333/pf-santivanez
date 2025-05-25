@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { UserFullNamePipe } from './pipes/user-full-name.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 import { RepeatDirective } from './directives/repeat.directive';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     UserFullNamePipe,
@@ -36,6 +37,7 @@ import { RepeatDirective } from './directives/repeat.directive';
     UserFullNamePipe,
     HighlightDirective,
     RepeatDirective,
+    MatProgressSpinnerModule,
   ]
 })
 export class SharedModule { }

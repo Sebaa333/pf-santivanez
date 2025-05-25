@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 *appRepeat="1" >Usuarios</h2>
+  <h2  >Usuarios</h2>
     <button mat-button (click)="openModal()"> 
         <mat-icon>
             add
@@ -20,7 +20,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td  color="red" appHighlight mat-cell *matCellDef="let user"> {{user | userFullName}}>
+          <td   appHighlight mat-cell *matCellDef="let user"> {{user | userFullName}}>
         </ng-container>
 
         <!-- email Column -->
@@ -36,11 +36,11 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button>
+          <td mat-cell *matCellDef="let user">
+            <button (click)="openModal(user)"  mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button> 
-          <button mat-icon-button>
+          <button (click)="onDelete(user.id)" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button> 
         </td>

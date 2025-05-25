@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { generateRandomString } from '../../../../shared/utils';
+import { User } from '../models';
+
+interface UserDialogData{
+  editingUser?:User
+}
 
 @Component({
   selector: 'app-user-dialog',
@@ -8,9 +15,36 @@ import { MatDialogRef } from '@angular/material/dialog';
   styles: ``
 })
 export class UserDialogComponent {
-constructor(private matDialogRef: MatDialogRef<UserDialogComponent>){}
+  userForm: FormGroup;
+constructor(private matDialogRef: MatDialogRef<UserDialogComponent>,
+  private formBuilder:FormBuilder,
+  @Inject(MAT_DIALOG_DATA) public data?:UserDialogData
+){
+  console.log(data)
+  
+  this.userForm = this.formBuilder.group({
+    firstName:[null,[Validators.required]],
+    lastName:[null,[Validators.required]],
+    email:[null,[Validators.required]],
+  })
+  this.patchFormValue()
+}
+ patchFormValue(){
+  if(this.data?.editingUser){
+    this.userForm.patchValue(this.data?.editingUser)
+  }
+ }
 
 onSave():void{
-  this.matDialogRef.close({result:'ok'})
+  if(this.userForm.invalid){
+    this.userForm.markAllAsTouched()
+  }else{
+    this.matDialogRef.close({
+      ...this.userForm.value,
+      id:generateRandomString(4),
+      createdAt: new Date()
+    })
+
+  }
 }
 }

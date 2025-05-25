@@ -43,13 +43,32 @@ export class UsersComponent {
 
   constructor(private MatDialog:MatDialog ){}
 
-  openModal():void{
-    this.MatDialog.open(UserDialogComponent)
+  
+
+
+  onDelete(id:string):void{
+    if(confirm('Estas seguro?')){
+      this.dataSource= this.dataSource.filter((user)=> user.id !== id)
+
+    }
+  }
+
+
+  openModal(editingUser?: User):void{
+    this.MatDialog
+    .open(UserDialogComponent, {data:{
+      editingUser,
+    }})
     .afterClosed()
     .subscribe({
       next:(result)=>{
         console.log('recibimos',result)
         if(!!result){
+          if(editingUser){
+            this.dataSource = this.dataSource.map((user)=>user.id === editingUser.id? {...user,...result}:user)
+          }else{
+            this.dataSource = [...this.dataSource,{...result,}]
+          }
           // this.dataSource = [...this.dataSource, {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},]
         }
       }

@@ -41,6 +41,9 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
         <td mat-cell *matCellDef="let user">
+          <button (click)="goToDetail(user.id)"  mat-icon-button>
+          <mat-icon>visibility</mat-icon>
+        </button>
           <button (click)="openModal(user)"  mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button> 
@@ -93,23 +96,6 @@
 
 </form>
 
-
-
-
-    <h2>Botones</h2>
-
-    <p>
-        <button mat-button >Crear</button>
-    </p>
-
-<h2>Iconos</h2>
-
-<p>
-    <mat-icon>add-outline</mat-icon>
-    <mat-icon>bluetooth-outline</mat-icon>
-    <mat-icon>diamond-outline</mat-icon>
-    <mat-icon>home</mat-icon>
-</p>
 
 <h2>Tarjetas</h2>
 

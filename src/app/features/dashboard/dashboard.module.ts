@@ -21,7 +21,7 @@ import {MatListModule} from '@angular/material/list';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    UsersModule,
+    // UsersModule,
     MatListModule,
   ],
   exports:[DashboardComponent]

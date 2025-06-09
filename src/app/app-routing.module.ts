@@ -4,6 +4,7 @@ import { AuthComponent } from './features/auth/auth.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { authGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -13,21 +14,12 @@ const routes: Routes = [
     loadChildren:()=>
      import('./features/auth/auth.module').then((m)=>m.AuthModule)
     
-    // children:[
-
-    //   {
-    //     path:'login',
-    //     component:LoginComponent
-    //   },
-    //   {
-    //     path:'register',
-    //     component:RegisterComponent,
-    //   }
-    // ]
+   
 
   },
   {
     path:'dashboard',
+    canActivate:[authGuard],
     component:DashboardComponent,
     loadChildren:()=>
      import('./features/dashboard/dashboard.module').then((m)=>m.DashboardModule)

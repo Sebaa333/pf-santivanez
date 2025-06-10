@@ -25,7 +25,14 @@
        #categoriesLink="routerLinkActive"
        [activated]="categoriesLink.isActive"
        >Categorias</a>
-
+       <a
+       routerLink="products"
+       mat-list-item
+       routerLinkActive
+       #productsLink="routerLinkActive"
+       [activated]="productsLink.isActive"
+       >Productos</a>
+       
       <a (click)="logout()" mat-list-item>CERRAR SESION</a>
     </mat-nav-list>
   </mat-drawer>

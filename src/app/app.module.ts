@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardModule } from './features/dashboard/dashboard.module';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { AuthModule } from './features/auth/auth.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,9 +14,15 @@ import { AuthModule } from './features/auth/auth.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     
   ],
-  providers: [provideNativeDateAdapter(),],
+  providers: [
+    provideAnimationsAsync(),
+    provideNativeDateAdapter(),
+    provideHttpClient(withFetch()),
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

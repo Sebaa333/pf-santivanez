@@ -1,0 +1,22 @@
+{
+  "users": [
+    
+    {
+      "id": "01e3",
+      "firstName": "Sebastian",
+      "lastName": "Santivanez",
+      "email": "seba@mail.com",
+      "password": "123456",
+      "role": "ADMIN",
+      "token": "dawdwadsdjkjgjgivhffdwdwd",
+      "createdAt": "2025-06-11T23:37:02.145Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "avcE2",
+      "name": "ps5",
+      "price": 999
+    }
+  ]
+}

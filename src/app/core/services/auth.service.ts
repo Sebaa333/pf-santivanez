@@ -1,19 +1,11 @@
 import { Injectable } from "@angular/core";
 import { AuthData } from "../../features/auth/models";
-import { BehaviorSubject, Observable, of, throwError } from "rxjs";
+import { BehaviorSubject, map, Observable, of, throwError } from "rxjs";
 import { User } from "../../features/dashboard/users/models";
-import { generateRandomString } from "../../shared/utils";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
-const FAKE_USER: User={
-    email:'admin@mail.com',
-    firstName:'admin',
-    lastName:'admin',
-    id: generateRandomString(4),
-    createdAt: new Date(),
-    password:'123456',
-    token: 'abcdefghiasdasdasdasdsdawdawdawdwadwadadasd'
-}
+
 
 @Injectable({providedIn:'root'})
 
@@ -21,20 +13,34 @@ export class AuthService{
     private _authUser$ = new BehaviorSubject<null | User>(null)
     public authUser$ = this._authUser$.asObservable()
 
-    constructor(private router: Router){}
+    constructor(private router: Router, private httpClient: HttpClient){}
+
+
+    private handleAuthentication (users:User[]): User | null{
+        if(!!users[0]){
+                // succes
+                this._authUser$.next(users[0])
+                localStorage.setItem('token',users[0].token)
+                return users[0]
+            }else{
+                // error
+                return null
+            }
+
+    }
 
 
     login(data: AuthData):Observable<User>{
-        if(data.email !=FAKE_USER.email || data.password != FAKE_USER.password){
-            return throwError(()=>new Error('los datos son invalidos') )
-        }
 
-        this._authUser$.next(FAKE_USER)
-
-        localStorage.setItem('token',FAKE_USER.token)
-
-
-        return of(FAKE_USER)
+        return this.httpClient.get<User[]>(`http://localhost:3000/users?email=${data.email}&password=${data.password}`)
+        .pipe(map((users)=> {
+             const user = this.handleAuthentication(users)
+             if(user){
+                return user
+             }else{
+                throw throwError(()=>new Error('los datos son invalidos'))
+             }
+        }))
 
     }
 
@@ -46,14 +52,14 @@ export class AuthService{
 
 
     verifyToken(): Observable<boolean>{
-        const isValid = localStorage.getItem('token')=== FAKE_USER.token
 
-        if(isValid){
-            this._authUser$.next(FAKE_USER)
+        return this.httpClient.get<User[]>(`http://localhost:3000/users?token=${localStorage.getItem('token')}`)
+        .pipe(map((users)=>{
+            const user = this.handleAuthentication(users)
+            return !! user
 
-        }else{
-            this._authUser$.next(null)
-        }
-        return of(isValid)
+        }))
+
+        
     }
 }

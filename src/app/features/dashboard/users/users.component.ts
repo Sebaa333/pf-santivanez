@@ -104,9 +104,9 @@ export class UsersComponent  implements OnInit {
             this.handleUpdate(editingUser.id,result)
 
           }else{
-            this.dataSource = [...this.dataSource,{...result,}]
+            this.usersService.createUser(result).subscribe({next:() => this.loadUsers()})
           }
-          // this.dataSource = [...this.dataSource, {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},]
+          
         }
       }
     })

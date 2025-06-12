@@ -1,6 +1,5 @@
 {
   "users": [
-    
     {
       "id": "01e3",
       "firstName": "Sebastian",
@@ -10,6 +9,16 @@
       "role": "ADMIN",
       "token": "dawdwadsdjkjgjgivhffdwdwd",
       "createdAt": "2025-06-11T23:37:02.145Z"
+    },
+    {
+      "id": "QJvx",
+      "firstName": "max editado",
+      "lastName": "dana",
+      "email": "dwadawd@mail.com",
+      "createdAt": "2025-06-12T01:45:50.389Z",
+      "role": "USER",
+      "password": "j550b79B",
+      "token": "7xSt94RUMam6P4h24dsV"
     }
   ],
   "products": [

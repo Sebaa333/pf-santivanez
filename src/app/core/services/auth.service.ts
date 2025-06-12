@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable, of, throwError } from "rxjs";
 import { User } from "../../features/dashboard/users/models";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 
 
 
@@ -12,6 +13,7 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService{
     private _authUser$ = new BehaviorSubject<null | User>(null)
     public authUser$ = this._authUser$.asObservable()
+    private baseURL = environment.apiBaseURL
 
     constructor(private router: Router, private httpClient: HttpClient){}
 
@@ -32,7 +34,7 @@ export class AuthService{
 
     login(data: AuthData):Observable<User>{
 
-        return this.httpClient.get<User[]>(`http://localhost:3000/users?email=${data.email}&password=${data.password}`)
+        return this.httpClient.get<User[]>(`${this.baseURL}/users?email=${data.email}&password=${data.password}`)
         .pipe(map((users)=> {
              const user = this.handleAuthentication(users)
              if(user){
@@ -53,7 +55,7 @@ export class AuthService{
 
     verifyToken(): Observable<boolean>{
 
-        return this.httpClient.get<User[]>(`http://localhost:3000/users?token=${localStorage.getItem('token')}`)
+        return this.httpClient.get<User[]>(`${this.baseURL}/users?token=${localStorage.getItem('token')}`)
         .pipe(map((users)=>{
             const user = this.handleAuthentication(users)
             return !! user
